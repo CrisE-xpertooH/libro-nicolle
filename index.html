@@ -118,6 +118,10 @@ body{
 #rotate{display:none;position:fixed;top:14px;left:16px;right:80px;color:#7a4a52;font-style:italic;font-size:15px;z-index:60}
 @media (orientation:landscape) and (max-height:520px){#rotate{display:block}}
 #single{position:absolute;inset:0;perspective:2200px;display:none;cursor:pointer}
+#spbox{position:fixed;z-index:55;top:10px;left:50%;transform:translateX(-50%);width:min(380px, calc(100vw - 32px));padding:6px;background:rgba(255,249,243,.94);border:1.5px solid var(--gold);border-radius:16px;box-shadow:0 6px 18px rgba(120,60,60,.2)}
+#spbox iframe,#spplayer{display:block;width:100%;height:80px;border:0;border-radius:12px}
+.spcap{font-size:15px;text-align:center;color:var(--deep);margin-top:4px;font-style:italic;font-weight:600}
+body.sp #musicBtn{display:none}
 .one #single{display:block}.one #book{display:none}
 .spage{position:absolute;inset:0;transform-origin:left center}
 .spage .face{transform:none!important;border-radius:6px 16px 16px 6px;box-shadow:6px 8px 24px rgba(120,60,60,.3)}
@@ -176,6 +180,7 @@ body{
 </div>
 
 <button class="btn" id="musicBtn" title="Música (M)" aria-label="Música">♪</button>
+<div id="spbox" hidden><div id="spplayer"></div><div class="spcap" id="spcap">♪ Toca ▶ para escuchar nuestra canción</div></div>
 <div id="rotate">Con el teléfono vertical se lee mejor ↻</div>
 
 <div id="holder"><div id="stage"><div id="book" class="closed-front"></div><div id="single"></div></div></div>
@@ -1135,8 +1140,10 @@ function fit(){
     layout();
   }
   const W = single ? 550 : 1100, reserve = single ? 84 : 110;
-  const s = Math.min((innerWidth - 24) / W, (innerHeight - reserve) / 700, 1.3);
+  const box = $('spbox'), resW = 0, resH = box.hidden ? 0 : box.offsetHeight + 16;
+  const s = Math.min((innerWidth - 24 - resW) / W, (innerHeight - reserve - resH) / 700, 1.3);
   const h = $('holder');
+  h.style.marginLeft = resW + 'px'; h.style.marginTop = resH + 'px';
   h.style.width = W*s + 'px'; h.style.height = 700*s + 'px';
   stage.style.width = W + 'px';
   stage.style.transform = `scale(${s})`;
@@ -1269,7 +1276,41 @@ function makeSynth(){
   };
 }
 
+const SP_ID = '6WK93ES8dqpgLSLNJq5wax';   // canción de Spotify (la usa la versión pública)
+let useSP = !!SP_ID, sp = null, spReady = false, spWanted = false, spBegun = false;
+function spFail(){
+  if(!useSP) return;
+  useSP = false; $('spbox').hidden = true; document.body.classList.remove('sp'); fit();
+  if(started && musicOn) playMusic();
+}
+function loadSP(){
+  if(!useSP) return;
+  $('spbox').hidden = false; document.body.classList.add('sp'); fit();
+  window.onSpotifyIframeApiReady = API => {
+    API.createController($('spplayer'), { uri:'spotify:track:' + SP_ID, width:'100%', height:80 }, ctrl => {
+      sp = ctrl;
+      ctrl.addListener('ready', () => { spReady = true; fit(); if(spWanted) playMusic(); });
+      ctrl.addListener('playback_update', e => {
+        const d = e.data || {};
+        if(!d.isPaused){ spBegun = true; $('spcap').hidden = true; fit(); }
+        // al terminar, vuelve a empezar
+        if(d.isPaused && spWanted && d.duration && d.position >= d.duration - 1200){ ctrl.seek(0); ctrl.resume(); }
+      });
+    });
+  };
+  const sc = document.createElement('script');
+  sc.src = 'https://open.spotify.com/embed/iframe-api/v1'; sc.onerror = spFail;
+  document.head.appendChild(sc);
+  setTimeout(()=>{ if(useSP && !spReady) spFail(); }, 15000);
+}
+loadSP();
+
 function playMusic(){
+  if(useSP){
+    spWanted = true;
+    if(spReady){ spBegun ? sp.resume() : sp.play(); }
+    return;
+  }
   if(usingFile){
     audio.play().catch(()=>{ usingFile=false; playMusic(); });
   } else {
@@ -1277,7 +1318,7 @@ function playMusic(){
     synth.start();
   }
 }
-function stopMusic(){ if(usingFile) audio.pause(); else if(synth) synth.stop(); }
+function stopMusic(){ if(useSP){ spWanted = false; if(spReady) sp.pause(); return; } if(usingFile) audio.pause(); else if(synth) synth.stop(); }
 audio.addEventListener('error', ()=>{ if(usingFile){ usingFile=false; if(started && musicOn) playMusic(); } });
 
 function toggleMusic(){
