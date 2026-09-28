@@ -122,6 +122,13 @@ body{
 #spbox iframe,#spplayer{display:block;width:100%;height:80px;border:0;border-radius:12px}
 .spcap{font-size:15px;text-align:center;color:var(--deep);margin-top:4px;font-style:italic;font-weight:600}
 body.sp #musicBtn{display:none}
+.land #spbox{top:10px;left:10px;transform:none;width:160px;padding:5px}
+.land #spbox iframe{width:300px!important;height:80px!important;transform:scale(.5);transform-origin:0 0;margin-bottom:-40px;border-radius:20px}
+.land #spbox{overflow:hidden}
+.land .spcap{font-size:12px;line-height:1.2}
+.land #controls{left:10px;right:auto;bottom:10px;width:160px;gap:12px}
+.land .hint,.land #rotate{display:none!important}
+.land #musicBtn{top:auto;bottom:64px;right:auto;left:71px}
 .one #single{display:block}.one #book{display:none}
 .spage{position:absolute;inset:0;transform-origin:left center}
 .spage .face{transform:none!important;border-radius:6px 16px 16px 6px;box-shadow:6px 8px 24px rgba(120,60,60,.3)}
@@ -1130,7 +1137,10 @@ if(touch){
 }
 
 function fit(){
-  const want = innerWidth < 760 || innerHeight < 520;
+  // celular horizontal: libro abierto a todo lo alto, reproductor y botones en una columna a la izquierda
+  const land = innerHeight < 520 && innerWidth > innerHeight;
+  document.body.classList.toggle('land', land);
+  const want = land ? innerWidth < 560 : (innerWidth < 760 || innerHeight < 520);
   if(want !== single){
     if(single !== null){ if(want) pg = cur === 0 ? 0 : Math.min(NP-1, 2*cur-1); else cur = Math.ceil(pg/2); }
     single = want;
@@ -1139,9 +1149,11 @@ function fit(){
     if(single) leaves.forEach((l,i)=>{ fill(l,i,false); l.style.display='none'; });
     layout();
   }
-  const W = single ? 550 : 1100, reserve = single ? 84 : 110;
-  const box = $('spbox'), resW = 0, resH = box.hidden ? 0 : box.offsetHeight + 16;
-  const s = Math.min((innerWidth - 24 - resW) / W, (innerHeight - reserve - resH) / 700, 1.3);
+  const W = single ? 550 : 1100, box = $('spbox');
+  let reserve, resW = 0, resH = 0;
+  if(land){ reserve = 12; resW = 172; }
+  else { reserve = single ? 84 : 110; resH = box.hidden ? 0 : box.offsetHeight + 16; }
+  const s = Math.min((innerWidth - 16 - resW) / W, (innerHeight - reserve - resH) / 700, 1.3);
   const h = $('holder');
   h.style.marginLeft = resW + 'px'; h.style.marginTop = resH + 'px';
   h.style.width = W*s + 'px'; h.style.height = 700*s + 'px';
