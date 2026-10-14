@@ -3,6 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Un cuento en rimas para Nicolle 🌸">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Para Nicolle">
+<meta property="og:title" content="La Princesa y las Peonías">
+<meta property="og:description" content="Un cuento en rimas para Nicolle 🌸">
+<meta property="og:url" content="https://crise-xpertooh.github.io/libro-nicolle/">
+<meta property="og:image" content="https://crise-xpertooh.github.io/libro-nicolle/img/og.jpg">
+<meta property="og:image:secure_url" content="https://crise-xpertooh.github.io/libro-nicolle/img/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_CL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#e8c3c0">
 <title>La Princesa y las Peonías</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
@@ -58,6 +72,15 @@ body{
   border:3px solid var(--gold);
   box-shadow:0 0 0 6px #f5e6dc, 0 0 0 8px var(--gold), 0 0 0 13px #efd3cf, inset 0 0 30px rgba(120,60,60,.2)}
 .pic svg.scene{display:block;width:100%;height:100%}
+.art{position:absolute;inset:0;background:#f3e3dc}
+.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.art svg.ov{position:absolute;inset:0;pointer-events:none}
+.cover .cameo{width:236px;height:300px;border-radius:50%;overflow:hidden;margin:8px 0 6px;
+  border:3px solid var(--gold);box-shadow:0 0 0 5px #f5e8dc,0 0 0 7px rgba(201,162,74,.75),0 8px 18px rgba(120,60,60,.22)}
+.cover .cameo img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block}
+.fincameo{width:170px;height:200px;border-radius:50%;overflow:hidden;margin:4px 0 2px;
+  border:3px solid var(--gold);box-shadow:0 0 0 4px #f5e8dc,0 0 0 6px rgba(201,162,74,.7)}
+.fincameo img{width:100%;height:100%;object-fit:cover;object-position:50% 32%;display:block}
 
 /* página de texto */
 .txt{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:54px 62px 60px;text-align:center}
@@ -84,10 +107,10 @@ body{
   box-shadow:inset 0 0 0 6px #f3e6d4, inset 0 0 0 8px var(--gold)}
 .cover .panel{position:relative;width:400px;display:flex;flex-direction:column;align-items:center;
   background:linear-gradient(180deg,#f8eee0,#ecdcc4);border:2px solid var(--gold);
-  border-radius:50% 50% 42% 42% / 15% 15% 11% 11%;padding:36px 26px 30px;
+  border-radius:50% 50% 42% 42% / 15% 15% 11% 11%;padding:28px 26px 22px;
   box-shadow:0 0 0 6px rgba(243,230,212,.8),0 0 0 8px rgba(201,162,74,.7),0 12px 30px rgba(120,60,60,.22)}
 .cover .once{font-style:italic;font-size:21px;color:#8a6a5a}
-.cover h1{font-family:'Pinyon Script',cursive;font-weight:400;font-size:62px;line-height:1.02;margin:4px 0 0;
+.cover h1{font-family:'Pinyon Script',cursive;font-weight:400;font-size:54px;line-height:1.02;margin:4px 0 0;
   color:var(--deep);text-shadow:0 1px 0 #fff, 0 3px 8px rgba(201,162,74,.35)}
 .cover .sub{font-size:23px;font-style:italic;color:#7a4a52;margin-top:4px}
 .cover .medal{width:200px;height:200px;margin:6px 0}
@@ -764,223 +787,28 @@ function chicken(x,y,s,flip=false){
    ========================================================= */
 const W = inner => `<svg class="scene" viewBox="0 0 400 510" preserveAspectRatio="xMidYMid slice">${inner}</svg>`;
 
+/* =========================================================
+   LAS 13 ESCENAS — ilustraciones en acuarela (img/escenaNN.jpg)
+   con animaciones suaves encima
+   ========================================================= */
+const ART = (n, ov='') => `<div class="art"><img src="img/escena${String(n).padStart(2,'0')}.jpg" alt="" decoding="async">
+  <svg class="ov scene" viewBox="0 0 400 510" preserveAspectRatio="xMidYMid slice">${ov}</svg></div>`;
+const motes = (n,y0,y1,col='#fff6c2') => Array.from({length:n},()=>sparkle(20+rnd()*360,y0+rnd()*(y1-y0),.5+rnd()*.6,rnd()*2.2,col)).join('');
+const notes = (x,y,col='#9a5566') => [0,1.3,2.6].map((d,i)=>`<g class="floatUp" style="animation-delay:${d}s"><text x="${x+i*14}" y="${y-i*6}" font-size="${16+i*2}" fill="${col}">♪</text></g>`).join('');
 const ESCENAS = [
-// 1 — El castillo
-() => W(`<rect width="400" height="510" fill="url(#gDay)"/>${sun(335,70)}${clouds(3,40)}
-  <path d="M0 300 Q100 240 200 282 Q300 232 400 272 L400 510 L0 510Z" fill="#a8cf8a"/>
-  ${castle(110,92,.95)}
-  <path d="M0 362 Q120 322 220 352 Q320 332 400 362 L400 510 L0 510Z" fill="#8cbf6e"/>
-  <path d="M222 311 Q206 380 160 420 Q118 462 140 510 L208 510 Q190 462 228 422 Q258 382 243 311Z" fill="#e6cf9b"/>
-  ${tree(368,330,.8)}${tree(30,318,.6)}${flowers(40,380,505)}
-  ${fig(princesa,34,300,92,{mood:'sad',arms:'hold'},'bob')}
-  ${flor(310,470,.7,'#f59ab0','class="swayB"')}${flor(335,480,.6,'#e0344a','class="swayB"')}`),
-
-// 2 — Los pretendientes
-() => W(`<rect width="400" height="510" fill="url(#stone)"/>
-  <path d="M170 60 L170 20 Q200 -10 230 20 L230 60Z" fill="#9fd3ef" stroke="#8a7458" stroke-width="4"/>
-  <g class="sway"><path d="M30 40 L86 40 L86 180 L58 158 L30 180Z" fill="#b9a3d6"/>${flor(58,130,.9,'#f4c542')}</g>
-  <g class="sway" style="animation-delay:-1.5s"><path d="M314 40 L370 40 L370 180 L342 158 L314 180Z" fill="#b9a3d6"/>${flor(342,130,.9,'#f4c542')}</g>
-  <rect y="398" width="400" height="112" fill="#d9b894"/><path d="M0 398 H400" stroke="#c29a70" stroke-width="4"/>
-  <path d="M170 398 L230 398 L300 510 L100 510Z" fill="#e3a3b3"/><path d="M170 398 L100 510 M230 398 L300 510" stroke="#f2c14e" stroke-width="3"/>
-  ${fig(pretendiente,8,254,70,'#b9a3d6')}${fig(pretendiente,82,262,66,'#8fc4b0')}${fig(pretendiente,152,256,68,'#e6a3b4')}
-  ${chest(22,424,.9)}${chest(96,436,.9)}${chest(166,428,.9)}
-  ${sparkle(35,420,1,0)}${sparkle(112,430,1,.7)}${sparkle(182,424,1,1.3)}${sparkle(62,418,.7,1.8)}${sparkle(140,432,.7,.4)}
-  ${fig(princesa,264,246,108,{mood:'sad'},'bob')}`),
-
-// 3 — El sueño: un boceto sin rostro
-() => W(`<rect width="400" height="510" fill="url(#stone)"/>
-  <defs><clipPath id="winClip"><path d="M40 290 L40 110 Q40 36 135 36 Q230 36 230 110 L230 290Z"/></clipPath></defs>
-  <g clip-path="url(#winClip)">${starryNight(300,{x0:40,x1:230,n:170,stars:6,moon:[196,82],swirls:[[125,130,50]],hills:true})}</g>
-  <path d="M40 290 L40 110 Q40 36 135 36 Q230 36 230 110 L230 290Z" fill="none" stroke="#d9b25a" stroke-width="8"/>
-  <path d="M135 38 V290 M40 170 H230" stroke="#d9b25a" stroke-width="4"/>
-  <rect x="28" y="286" width="214" height="12" rx="4" fill="#efdcc0" stroke="#c9a24a" stroke-width="2"/>
-  <path d="M14 22 Q58 22 64 70 Q48 170 58 300 L14 300Z" fill="#e7b0bd"/><path d="M256 22 Q212 22 206 70 Q222 170 212 300 L256 300Z" fill="#e7b0bd"/>
-  <path d="M6 14 H264 V28 Q238 48 212 28 Q186 48 160 28 Q134 48 108 28 Q82 48 56 28 Q30 48 6 28Z" fill="#d98ca0"/>
-  ${[56,108,160,212].map(x=>`<path d="M${x} 30 v10" stroke="#c9a24a" stroke-width="2"/><circle cx="${x}" cy="44" r="4" fill="#c9a24a"/>`).join('')}
-  <rect y="444" width="400" height="66" fill="#d9b894"/>
-  <path d="M18 446 L18 330 Q18 298 60 298 Q102 298 102 330 L102 446Z" fill="#f4e6d2" stroke="#c9a24a" stroke-width="3"/>
-  <path d="M32 318 q28 -18 56 0 M40 330 q20 -10 40 0" stroke="#c9a24a" stroke-width="2" fill="none"/>${bow(60,312,1,'#d98ca0')}
-  <rect x="38" y="402" width="344" height="46" rx="9" fill="#f8efe4" stroke="#dcc6ae" stroke-width="2"/>
-  <rect x="44" y="446" width="10" height="26" fill="#c9a24a"/><rect x="366" y="446" width="10" height="26" fill="#c9a24a"/>
-  <ellipse cx="92" cy="394" rx="42" ry="18" fill="#fff" stroke="#eadbcc" stroke-width="2"/>
-  <ellipse cx="97" cy="386" rx="32" ry="16" fill="#6b3a1b"/>
-  <circle cx="100" cy="384" r="17" fill="#f7d6bd"/>
-  <path d="M83 380 Q86 366 100 366 Q114 366 117 380 Q108 372 100 374 Q92 372 83 380Z" fill="#6b3a1b"/>
-  <path d="M91 386 Q94.5 389.5 98 386 M102 386 Q105.5 389.5 109 386" stroke="#3a2010" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <circle cx="89" cy="391" r="3" fill="#f39aa3" opacity=".6"/><circle cx="111" cy="391" r="3" fill="#f39aa3" opacity=".6"/>
-  <path d="M96.5 393 Q100 395.5 103.5 393" stroke="#9a4a47" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-  <path d="M114 394 Q170 374 240 386 Q320 380 382 398 L382 448 L114 448Z" fill="#eeb3c0"/>
-  <path d="M114 398 Q170 380 240 392 Q320 386 382 404" stroke="#fff" stroke-width="5" opacity=".75" fill="none" stroke-dasharray=".1 7" stroke-linecap="round"/>
-  <path d="M150 410 l20 14 l20 -14 l20 14 l20 -14 l20 14 l20 -14 l20 14 l20 -14 l20 14 l20 -14" stroke="#fff" stroke-width="1.2" opacity=".45" fill="none"/>
-  ${[0,1.3,2.6].map((d,i)=>`<g class="floatUp" style="animation-delay:${d}s"><text x="${122+i*9}" y="${366-i*8}" font-size="${14+i*3}" fill="#9a5566" font-family="serif" font-style="italic">z</text></g>`).join('')}
-  <circle cx="148" cy="350" r="6" fill="#fbf3ea" stroke="#e2cdb8" stroke-width="2"/><circle cx="172" cy="326" r="9" fill="#fbf3ea" stroke="#e2cdb8" stroke-width="2"/><circle cx="200" cy="298" r="12" fill="#fbf3ea" stroke="#e2cdb8" stroke-width="2"/>
-  <g class="bob">
-    ${[[300,190,66],[252,214,40],[348,214,40],[258,152,40],[342,148,40],[300,122,42],[300,256,38]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#fbf3ea" stroke="#e2cdb8" stroke-width="6"/>`).join('')}
-    ${[[300,190,66],[252,214,40],[348,214,40],[258,152,40],[342,148,40],[300,122,42],[300,256,38]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#fbf3ea"/>`).join('')}
-    <g transform="rotate(4 300 190)">
-      <rect x="252" y="124" width="96" height="130" fill="#fffaf0" stroke="#d8c8b0"/>
-      <g fill="none" stroke="#6d6a66" stroke-width="1.3" stroke-linecap="round" opacity=".85">
-        <ellipse cx="300" cy="158" rx="30" ry="6"/><path d="M286 157 Q287 138 300 137 Q313 138 314 157"/>
-        <ellipse cx="300" cy="173" rx="14" ry="16"/>
-        <path d="M295 188 L295 197 M305 188 L305 197"/>
-        <path d="M274 248 Q276 206 295 198 L300 210 L305 198 Q324 206 326 248"/>
-        <path d="M280 212 Q272 230 276 248 M320 212 Q328 230 324 248"/>
-        <path d="M282 232 l8 -6 M285 240 l8 -6 M312 234 l8 -6 M309 242 l8 -6"/>
-      </g>
-      <g fill="none" stroke="#8d8a86" stroke-width=".8" opacity=".55">
-        <ellipse cx="301" cy="157" rx="29" ry="5.5"/><ellipse cx="299" cy="174" rx="13" ry="15.5"/>
-        <path d="M276 247 Q278 207 296 199 M324 247 Q322 207 304 199"/>
-      </g>
-      <text x="300" y="180" font-size="15" text-anchor="middle" fill="#b8b2aa" font-family="serif">?</text>
-      <g transform="translate(334 238) rotate(-35)"><rect x="-3" y="-20" width="6" height="30" fill="#f4c542"/><path d="M-3 10 L0 17 L3 10Z" fill="#e8c9a0"/><path d="M-1 15 L0 17 L1 15Z" fill="#555"/></g>
-    </g>
-    ${sparkle(250,120,1,0)}${sparkle(356,120,.9,.8)}${sparkle(360,250,.8,1.5)}
-  </g>`),
-
-// 4 — La escapada bajo la noche estrellada
-() => W(`${starryNight(510,{moon:[330,72],swirls:[[170,150,70],[300,210,38]],n:320,stars:9})}
-  <path d="M0 300 Q150 262 260 290 Q340 272 400 290 L400 510 L0 510Z" fill="#23386a"/>
-  ${Array.from({length:30},(_,i)=>{const x=rnd()*400,y=296+rnd()*40;return `<path d="M${x.toFixed(1)} ${y.toFixed(1)} q9 -4 18 0" stroke="${['#2f4c86','#3a5c96','#1b2d5a'][i%3]}" stroke-width="3" fill="none" stroke-linecap="round"/>`}).join('')}
-  ${castle(200,152,.74,true)}
-  <path d="M0 332 Q200 312 400 332 L400 374 Q200 354 0 374Z" fill="#1d3a6e"/>
-  <path d="M20 348 H120 M200 344 H320 M60 362 H180" stroke="#f3d34a" stroke-width="2" class="shimmer" opacity=".7"/>
-  <path d="M0 370 Q200 352 400 372 L400 510 L0 510Z" fill="#22405a"/>
-  ${Array.from({length:44},(_,i)=>{const x=rnd()*400,y=380+rnd()*125;return `<path d="M${x.toFixed(1)} ${y.toFixed(1)} q8 -4 16 0" stroke="${['#2f5572','#3a6687','#1b334a'][i%3]}" stroke-width="3" fill="none" stroke-linecap="round"/>`}).join('')}
-  <path d="M277 322 L300 322 L304 376 L268 376Z" fill="#7a5230"/><path d="M272 334 H302 M271 346 H302 M270 358 H303 M269 370 H304" stroke="#4e3219" stroke-width="2"/>
-  <path d="M286 376 Q250 420 180 440 Q120 460 90 510" stroke="#4a6f86" stroke-width="30" fill="none" stroke-linecap="round"/>
-  ${[[250,410],[220,425],[190,436],[165,446]].map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="3.5" ry="2" fill="#1b334a"/>`).join('')}
-  ${cypress(40,500,300)}
-  ${fig(princesa,92,300,86,{capa:true,hood:true},'walk')}
-  ${tree(372,420,.7,['#1f3a3a','#183030','#28484a'])}`),
-
-// 5 — El pueblo
-() => W(`<rect width="400" height="510" fill="url(#gDay)"/>${clouds(2,30)}
-  ${house(8,212,1)}${house(145,188,1.1,'#f6e2c0','#b9854a')}${house(300,218,.95)}
-  <path d="M0 150 Q100 200 200 160 Q300 200 400 150" stroke="#7a5230" stroke-width="1.5" fill="none"/>
-  ${[20,50,80,110,140,170,230,260,290,320,350,380].map((x,i)=>{const y=150+Math.sin((x/400)*Math.PI*2)*-1+ (x<200? (1-Math.abs(x-100)/100)*28 : (1-Math.abs(x-300)/100)*28);
-     return `<g class="sway" style="animation-delay:-${i*.3}s"><path d="M${x-8} ${y} L${x+8} ${y} L${x} ${y+16}Z" fill="${['#e0344a','#f4c542','#4f9dd8','#7b5ea7'][i%4]}"/></g>`}).join('')}
-  <rect y="360" width="400" height="150" fill="#dcc496"/>
-  ${Array.from({length:40},()=>`<ellipse cx="${rnd()*400}" cy="${370+rnd()*140}" rx="${6+rnd()*6}" ry="3" fill="#c9ae7c" opacity=".7"/>`).join('')}
-  <rect x="268" y="320" width="5" height="90" fill="#7a5230"/><rect x="386" y="320" width="5" height="90" fill="#7a5230"/>
-  ${Array.from({length:6},(_,i)=>`<path d="M${262+i*22} 300 h22 v22 q-11 8 -22 0z" fill="${i%2?'#fff4e0':'#d9434f'}"/>`).join('')}
-  <rect x="262" y="376" width="134" height="34" fill="#9a6b3a" stroke="#6b4226" stroke-width="2"/>
-  ${[[278,372,'#e0344a'],[292,370,'#e0344a'],[306,372,'#f39c2a'],[322,370,'#f39c2a'],[340,372,'#8bc34a'],[356,370,'#e0344a']].map(([x,y,c])=>`<circle cx="${x}" cy="${y}" r="7" fill="${c}"/>`).join('')}
-  <ellipse cx="376" cy="370" rx="12" ry="7" fill="#d9a25a"/>
-  ${[0,1.3,2.6].map((d,i)=>`<g class="floatUp" style="animation-delay:${d}s"><text x="${300+i*26}" y="300" font-size="18" fill="#7b5ea7">♪</text></g>`).join('')}
-  ${chicken(50,470,1)}${chicken(110,488,.85,true)}
-  ${fig(princesa,150,282,88,{capa:true,hood:true,mood:'wow'},'bob')}`),
-
-// 6 — Los ojos color otoño
-() => W(`<rect width="400" height="510" fill="url(#gAutumn)"/>${clouds(2,40,.8)}
-  <path d="M0 340 Q200 310 400 340 L400 510 L0 510Z" fill="#d7b67a"/>
-  <path d="M0 420 Q200 400 400 430 L400 510 L0 510Z" fill="#c9a266"/>
-  ${tree(52,300,1.6,['#e0782f','#c9552a','#f0a040'])}
-  <g transform="translate(250 360)">
-    <rect x="0" y="0" width="130" height="48" rx="4" fill="#8a5a30" stroke="#5a3a1a" stroke-width="2"/>
-    <path d="M0 16 H130 M0 32 H130" stroke="#6b4226" stroke-width="2"/>
-    <line x1="130" y1="30" x2="160" y2="60" stroke="#5a3a1a" stroke-width="5"/>
-    ${[22,108].map(cx=>`<g transform="translate(${cx} 56)"><circle r="20" fill="#6b4226" stroke="#3a2412" stroke-width="3"/><g><path d="M-18 0 H18 M0 -18 V18 M-13 -13 L13 13 M13 -13 L-13 13" stroke="#3a2412" stroke-width="2"/></g><circle r="4" fill="#3a2412"/></g>`).join('')}
-    ${[10,24,38,52,66,80,94,108,122].map((x,i)=>flor(x,4,.5+(i%3)*.08,['#e0344a','#9b59b6','#f59ab0'][i%3],`class="swayB" style="animation-delay:-${i*.4}s"`)).join('')}
-  </g>
-  ${fig(campesino,190,256,92,{mood:'love'},'bob')}
-  ${hearts([228,245,262],250)}
-  ${fig(princesa,74,286,88,{capa:true,hood:true,mood:'smile'})}
-  ${fallingLeaves(16,['#e0782f','#c9552a','#f0a040','#b5651d'])}`),
-
-// 7 — Las peonán
-() => W(`<rect width="400" height="510" fill="url(#gLove)"/>
-  ${Array.from({length:14},(_,i)=>sparkle(20+rnd()*360,20+rnd()*220,.6+rnd()*.7,rnd()*2)).join('')}
-  <path d="M0 400 Q200 370 400 400 L400 510 L0 510Z" fill="#b9d98e"/>${flowers(40,410,505)}
-  ${fig(princesa,62,248,104,{capa:true,mood:'blush',arms:'reachR'})}
-  ${fig(campesino,214,244,104,{pose:'offer'})}
-  <g class="pulse">${heart(200,200,1.6,'#e0445a')}</g>
-  ${hearts([150,250],230,['#f37a8c','#e0445a'])}
-  ${sparkle(186,284,1.2,0,'#fff')}${sparkle(226,276,.9,.8,'#fff')}`),
-
-// 8 — Paseos junto al río
-() => W(`<rect width="400" height="510" fill="url(#gDay)"/>${sun(60,64,20)}${clouds(2,50)}
-  <path d="M0 262 Q100 230 200 250 Q300 226 400 252 L400 510 L0 510Z" fill="#9fcf86"/>
-  ${tree(330,250,.55)}${tree(370,258,.45)}${tree(20,250,.5)}
-  <path d="M260 250 Q220 300 262 342 Q322 402 242 452 Q182 490 202 510 L292 510 Q262 480 322 452 Q402 402 332 342 Q292 300 290 250Z" fill="#6fb3d9"/>
-  <path d="M268 290 Q290 320 300 350 M300 400 Q290 440 250 470" stroke="#fff" stroke-width="2.5" fill="none" class="shimmer"/>
-  ${[0,1,2,3,4,5].map(i=>flor(340+(i%3)*18,420+Math.floor(i/3)*40+i*3,.55,['#e0344a','#f59ab0','#f4c542'][i%3],`class="swayB" style="animation-delay:-${i*.5}s"`)).join('')}
-  ${flowers(30,300,500)}
-  ${fig(princesa,30,282,90,{capa:true,arms:'reachR'},'bob')}
-  ${fig(campesino,112,277,90,{pose:'reachL'},'bob',"animation-delay:-1.3s")}
-  <g class="pulse">${heart(120,258,.7,'#e0445a')}</g>
-  ${butterfly(200,200,'#f4c542')}${butterfly(80,160,'#f59ab0',3)}`),
-
-// 9 — La despedida
-() => W(`<rect width="400" height="510" fill="url(#gSunset)"/>
-  <circle cx="262" cy="262" r="60" fill="url(#gSun)"/><circle cx="262" cy="262" r="32" fill="#ffd66b"/>
-  <path d="M0 262 H400 V510 H0Z" fill="#9bbf6a"/>
-  <path d="M0 262 L262 262 L0 330Z" fill="#c9c26a"/><path d="M400 262 L262 262 L400 320Z" fill="#b7cf6f"/>
-  <path d="M0 330 L262 262 L0 420Z" fill="#8fb35e"/><path d="M400 320 L262 262 L400 410Z" fill="#e3c46a"/>
-  <path d="M262 262 L0 510 L0 470 Z" fill="#a8c46a" opacity=".5"/>
-  <path d="M254 264 L270 264 L330 510 L150 510Z" fill="#e6cf9b"/>
-  ${fig(campesino,252,222,20,{pose:'wave'},'bob')}
-  ${[[90,90],[120,110],[150,80]].map(([x,y],i)=>`<path d="M${x} ${y} q6 -6 12 0 q6 -6 12 0" stroke="#4a2e4a" stroke-width="2" fill="none" class="drift" style="animation-duration:${30+i*6}s;animation-delay:-${i*5}s"/>`).join('')}
-  ${fig(princesa,40,260,106,{mood:'sad',arms:'hold',ramo:true})}`),
-
-// 10 — La paloma mensajera
-() => W(`<rect width="400" height="510" fill="url(#gDay)"/>${clouds(3,30)}
-  <path d="M-20 330 L70 190 L150 330Z" fill="#9fa8d6"/><path d="M52 218 L70 190 L88 218 L78 212 L70 222 L62 212Z" fill="#fff"/>
-  <path d="M90 330 L210 160 L330 330Z" fill="#7f8cc7"/><path d="M186 194 L210 160 L234 194 L222 188 L210 200 L198 188Z" fill="#fff"/>
-  <path d="M260 330 L350 210 L440 330Z" fill="#9fa8d6"/><path d="M335 230 L350 210 L365 230 L356 226 L350 234 L344 226Z" fill="#fff"/>
-  <path d="M0 330 Q200 300 400 330 L400 510 L0 510Z" fill="#8cbf6e"/>
-  ${[20,60,100,300,340,380].map((x,i)=>tree(x,330+(i%2)*8,.42,['#3f7d4a','#356b3f','#4c8f57'])).join('')}
-  <path d="M0 400 Q120 380 200 410 Q300 440 400 400" stroke="#6fb3d9" stroke-width="10" fill="none"/>
-  <g class="fly">${dove()}</g>
-  ${[[70,460,'❄','#7fb2e0'],[160,460,'✿','#e0344a'],[250,460,'☀','#f0a030'],[340,460,'❦','#c9552a']].map(([x,y,t,c],i)=>
-     `<g><circle cx="${x}" cy="${y}" r="24" fill="#fdf6e3" stroke="#c9a66b" stroke-width="2"/><text x="${x}" y="${y+9}" font-size="26" text-anchor="middle" fill="${c}">${t}</text></g>`).join('')}
-  <path d="M94 460 H136 M184 460 H226 M274 460 H316" stroke="#c9a66b" stroke-width="2" stroke-dasharray="4 4"/>
-  ${envelope(40,110,.8)}${envelope(360,90,.7)}`),
-
-// 11 — La herencia
-() => W(`<rect width="400" height="510" fill="url(#gDay)"/>${sun(70,70,20)}${clouds(2,40)}
-  <path d="M180 330 Q290 230 400 300 L400 510 L180 510Z" fill="#9fcf86"/>
-  <g transform="translate(305 186)">
-    <path d="M-22 150 L-14 0 L14 0 L22 150Z" fill="#efe3c6" stroke="#a99f88" stroke-width="2"/>
-    <polygon points="-18,2 0,-24 18,2" fill="#b2413b"/>
-    <path d="M-6 150 L-6 128 Q0 120 6 128 L6 150Z" fill="#6b4226"/><rect x="-5" y="40" width="10" height="12" fill="#4a3f63"/>
-    <g>
-      ${[0,90,180,270].map(a=>`<g transform="rotate(${a})"><rect x="-3" y="-78" width="6" height="78" fill="#7a5230"/><rect x="3" y="-76" width="18" height="60" fill="#f6ecd2" stroke="#7a5230" stroke-width="1.5"/><path d="M3 -56 H21 M3 -36 H21 M12 -76 V-16" stroke="#7a5230" stroke-width="1"/></g>`).join('')}
-      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="7s" repeatCount="indefinite"/>
-    </g>
-    <circle r="6" fill="#5a3a1a"/>
-  </g>
-  <path d="M0 380 Q200 350 400 380 L400 510 L0 510Z" fill="#e3c46a"/>
-  ${Array.from({length:28},(_,i)=>`<path d="M${i*15} ${400+(i%3)*10} q2 -14 0 -22" stroke="#c9a040" stroke-width="2" fill="none"/>`).join('')}
-  <path d="M0 450 Q200 430 400 460 L400 510 L0 510Z" fill="#d4b056"/>
-  ${fig(campesino,86,234,104,{pose:'joy',mood:'big',scroll:true},'jump')}
-  ${Array.from({length:8},(_,i)=>sparkle(40+rnd()*220,180+rnd()*150,.8+rnd()*.6,rnd()*2,'#f4c542')).join('')}`),
-
-// 12 — Ante el rey
-() => W(`<rect width="400" height="510" fill="url(#stone)"/>
-  <path d="M0 0 H70 Q60 120 0 200Z" fill="#e7b0bd"/><path d="M400 0 H330 Q340 120 400 200Z" fill="#e7b0bd"/>
-  <path d="M0 0 H400 V26 Q200 50 0 26Z" fill="#d98ca0"/><path d="M0 26 Q200 50 400 26" stroke="#f2c14e" stroke-width="4" fill="none"/>
-  <rect y="400" width="400" height="110" fill="#d9b894"/><path d="M0 400 H400" stroke="#c29a70" stroke-width="4"/>
-  <path d="M240 400 L330 400 L390 510 L180 510Z" fill="#e3a3b3"/>
-  <path d="M232 408 L232 200 Q284 140 336 200 L336 408Z" fill="#d4a94a" stroke="#9a7132" stroke-width="3"/>
-  <path d="M244 404 L244 210 Q284 160 324 210 L324 404Z" fill="#d98ca0"/>${heart(284,176,.7,'#e0344a')}
-  ${fig(rey,238,214,92,{letter:true,blush:true})}
-  ${fig(campesino,138,256,92,{hat:false,pose:'hold'})}
-  ${fig(princesa,28,256,96,{arms:'hold'},'bob')}
-  ${chest(110,440,1.1,true)}
-  ${[0,.8,1.6,2.4,3.2].map((d,i)=>`<g class="floatUp" style="animation-delay:${d}s">${envelope(120+i*9,432,.9)}</g>`).join('')}
-  ${sparkle(126,436,1,0)}${sparkle(160,440,.8,1)}`),
-
-// 13 — La boda y el jardín de peonías
-() => W(`<rect width="400" height="510" fill="url(#gDay)"/>${clouds(2,30)}
-  ${castle(120,70,.68)}
-  <path d="M0 250 Q200 220 400 250 L400 510 L0 510Z" fill="#9fcf86"/>
-  <g class="sway"><path d="M30 0 V40" stroke="#7a5230" stroke-width="2"/><path d="M18 58 Q18 36 30 36 Q42 36 42 58Z" fill="#f4c542" stroke="#c9961a"/><circle cx="30" cy="60" r="4" fill="#c9961a"/></g>
-  <g class="sway" style="animation-delay:-1.5s"><path d="M370 0 V40" stroke="#7a5230" stroke-width="2"/><path d="M358 58 Q358 36 370 36 Q382 36 382 58Z" fill="#f4c542" stroke="#c9961a"/><circle cx="370" cy="60" r="4" fill="#c9961a"/></g>
-  ${fig(princesa,92,214,100,{veil:true,arms:'reachR',mood:'big',gown:'#fbf4ee'})}
-  ${fig(campesino,184,210,100,{pose:'reachL',flower:true,mood:'big'})}
-  <g class="pulse">${heart(192,166,1.4,'#e0445a')}</g>
-  ${[0,1,2].map(r=>Array.from({length:15},(_,i)=>flor(8+i*27+(r%2)*13, 452+r*26, .6+r*.1, ['#e0344a','#f59ab0','#f4c542','#e0344a','#9b59b6'][(i+r)%5], `class="swayB" style="animation-delay:-${(i+r)*.3}s"`)).join('')).join('')}
-  ${petals(18,['#f59ab0','#fff','#e0344a','#f7d24a'])}`)
+() => ART(1, `${motes(6,20,200)}${petals(4,['#f59ab0','#fde3ea'])}`),
+() => ART(2, `${motes(12,330,470,'#fff3a0')}`),
+() => ART(3, `${motes(14,10,240,'#fffbe6')}${[0,1.4,2.8].map((d,i)=>`<g class="floatUp" style="animation-delay:${d}s"><text x="${118+i*10}" y="${300-i*8}" font-size="${16+i*3}" fill="#9a5566" font-family="serif" font-style="italic">z</text></g>`).join('')}`),
+() => ART(4, `${motes(16,10,230,'#fffbe6')}`),
+() => ART(5, `${notes(268,240)}${petals(5,['#f59ab0','#fde3ea','#c9a7e8'])}`),
+() => ART(6, `${fallingLeaves(16,['#e0782f','#c9552a','#f0a040','#b5651d'])}`),
+() => ART(7, `${petals(14,['#f59ab0','#fde3ea','#ee9bb3','#f7c6a8'])}${hearts([90,300],180,['#f37a8c','#e0445a'])}${motes(8,20,250)}`),
+() => ART(8, `${petals(8,['#f59ab0','#fde3ea'])}${hearts([200,226],140)}`),
+() => ART(9, `${petals(8,['#f59ab0','#fde3ea','#ee9bb3'])}${motes(5,20,160)}`),
+() => ART(10, `${hearts([300,330],250,['#f37a8c','#e0445a'])}${motes(6,40,240)}`),
+() => ART(11, `${motes(14,60,330,'#f4c542')}`),
+() => ART(12, `${hearts([60,90,330],200,['#f37a8c','#e0445a'])}${motes(6,20,200)}`),
+() => ART(13, `${petals(20,['#f59ab0','#ffffff','#e0344a','#f7d24a','#9fd8c6','#c9a7e8'])}`)
 ];
 
 /* =========================================================
@@ -999,7 +827,7 @@ const COVER = `<div class="face front cover">${RC}
   <div class="panel">${CREST.replace('class="crest"','class="crest" style="top:-30px"')}
     <div class="once">Érase una vez…</div>
     <h1>La Princesa<br>y las Peonías</h1>
-    ${medal}
+    <div class="cameo"><img src="img/portada.jpg" alt=""></div>
     <div class="sub">Un cuento en rimas para Nicolle</div>
   </div>
   <div class="press">Presiona → para abrir</div>
@@ -1019,7 +847,7 @@ ESCENAS.forEach((sc,i)=>{
   pages.push(`<div class="face back paper pic">${RC}${CREST}<div class="frame">${sc()}</div></div>`);
   pages.push(`<div class="face front paper txt">${RC}<div class="orn">❦</div><div class="verse">${verseHTML(VERSOS[i])}</div>${miniTulip}<div class="pnum">${i+1}</div></div>`);
 });
-pages.push(`<div class="face back paper txt">${RC}<div class="orn">❦</div><div class="verse">${verseHTML(FINAL)}</div><div class="fin">~ Fin ~</div>${miniTulip}</div>`);
+pages.push(`<div class="face back paper txt">${RC}<div class="orn">❦</div><div class="fincameo"><img src="img/final.jpg" alt=""></div><div class="verse">${verseHTML(FINAL)}</div><div class="fin">~ Fin ~</div></div>`);
 pages.push(`<div class="face front paper txt">${RC}<div class="dedic">${DEDICATORIA}</div><div style="margin-top:18px"><svg width="60" height="50" viewBox="-20 -8 40 30"><g class="pulse">${heart(0,0,1,'#d98ca0')}</g></svg></div></div>`);
 pages.push(BACKCOVER);
 
@@ -1313,7 +1141,7 @@ function loadSP(){
   const sc = document.createElement('script');
   sc.src = 'https://open.spotify.com/embed/iframe-api/v1'; sc.onerror = spFail;
   document.head.appendChild(sc);
-  setTimeout(()=>{ if(useSP && !spReady) spFail(); }, 15000);
+  setTimeout(()=>{ if(useSP && !spReady) spFail(); }, 45000);
 }
 loadSP();
 
