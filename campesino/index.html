@@ -1247,7 +1247,7 @@ function loadSP(){
   const sc = document.createElement('script');
   sc.src = 'https://open.spotify.com/embed/iframe-api/v1'; sc.onerror = spFail;
   document.head.appendChild(sc);
-  setTimeout(()=>{ if(useSP && !spReady) spFail(); }, 15000);
+  setTimeout(()=>{ if(useSP && !spReady) spFail(); }, 45000);
 }
 loadSP();
 
