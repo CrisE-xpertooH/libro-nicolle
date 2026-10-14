@@ -18,6 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#e8c3c0">
 <title>El Campesino y los Ojos de Otoño</title>
+<link rel="preload" as="image" href="img/portada.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 <style>
@@ -73,7 +74,8 @@ body{
   box-shadow:0 0 0 6px #eff1e3, 0 0 0 8px var(--gold), 0 0 0 13px #d5dfc3, inset 0 0 30px rgba(60,72,40,.2)}
 .pic svg.scene{display:block;width:100%;height:100%}
 .art{position:absolute;inset:0;background:#efe6cf}
-.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;animation:imgIn .35s ease-out}
+@keyframes imgIn{from{opacity:.0}to{opacity:1}}
 .art svg.ov{position:absolute;inset:0;pointer-events:none}
 .cover .cameo{width:236px;height:300px;border-radius:50%;overflow:hidden;margin:8px 0 6px;
   border:3px solid var(--gold);box-shadow:0 0 0 5px #f3ecd8,0 0 0 7px rgba(201,162,74,.75),0 8px 18px rgba(60,72,40,.25)}
@@ -340,7 +342,7 @@ la vio a lo lejos saludar.`,
 
 `Allá lejos, bajo el sol,
 sembró trigo, maíz y col,
-y de noche, a la luz de una vela,
+y de noche, con la vela por estrella,
 le escribía a su doncella:
 
 «Te pienso en cada fogata,
@@ -390,9 +392,9 @@ solo un molino… y mi amor».
 El rey rió: «¿Eso es todo, señor?
 
 ¡Cien vinieron con oro fino!
-¿Y tú me traes un molino?
-¿Y tú, mi cabeza de pollo,
-qué dices de este embrollo?».`,
+¿Y tú me traes un molino?».
+Y a su hija: «Cabeza de pollo,
+¿qué dices de este embrollo?».`,
 
 `Entonces ella, sonriente,
 abrió un cofre frente a la gente:
@@ -420,8 +422,8 @@ plantó aquella peonía
 que su abuela sembró un día.`
 ];
 
-const FINAL = `Y hoy, cada otoño, al mirarla,
-no se cansa de admirarla,
+const FINAL = `Y hoy, cada otoño, a su lado,
+sigue igual de enamorado,
 pues son los ojos que un día
 soñó… y hoy son su alegría.
 
@@ -1023,7 +1025,24 @@ function layoutSingle(){
   $('prevBtn').disabled = pg === 0;
   $('nextBtn').disabled = pg === NP - 1;
 }
-const layout = () => single ? layoutSingle() : layoutBook();
+const IMGCACHE = {};
+function loadImg(u){ if(IMGCACHE[u]) return IMGCACHE[u]; const im = new Image(); im.decoding = 'async'; im.src = u; IMGCACHE[u] = im; return im; }
+const imgsOf = p => (pages[p] || '').match(/img\/[\w.-]+\.jpg/g) || [];
+// deja listas las páginas cercanas (antes y después de la actual)
+function preloadNear(){
+  const base = single ? pg : Math.max(0, 2*cur - 1);
+  for(let p = base - 2; p <= base + 6; p++) imgsOf(p).forEach(loadImg);
+}
+// y de a poco, una por una, todas las demás
+function preloadAll(){
+  const all = [...new Set(pages.flatMap((_, p) => imgsOf(p)))];
+  let i = 0;
+  const next = () => { while(i < all.length && IMGCACHE[all[i]]) i++; if(i >= all.length) return;
+    const im = loadImg(all[i++]); const go = () => setTimeout(next, 150);
+    if(im.complete) go(); else { im.onload = go; im.onerror = go; } };
+  next();
+}
+const layout = () => { single ? layoutSingle() : layoutBook(); preloadNear(); };
 
 function turn(dir){
   if(single){
@@ -1294,6 +1313,7 @@ function openBook(){
   document.getElementById('intro').classList.add('gone');
   playMusic();
   setTimeout(()=>turn(1), 900);
+  setTimeout(preloadAll, 2500);
 }
 document.getElementById('openBtn').onclick = openBook;
 

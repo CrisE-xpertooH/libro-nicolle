@@ -18,6 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#e8c3c0">
 <title>La Princesa y las Peonías</title>
+<link rel="preload" as="image" href="img/portada.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 <style>
@@ -73,7 +74,8 @@ body{
   box-shadow:0 0 0 6px #f5e6dc, 0 0 0 8px var(--gold), 0 0 0 13px #efd3cf, inset 0 0 30px rgba(120,60,60,.2)}
 .pic svg.scene{display:block;width:100%;height:100%}
 .art{position:absolute;inset:0;background:#f3e3dc}
-.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;animation:imgIn .35s ease-out}
+@keyframes imgIn{from{opacity:.0}to{opacity:1}}
 .art svg.ov{position:absolute;inset:0;pointer-events:none}
 .cover .cameo{width:236px;height:300px;border-radius:50%;overflow:hidden;margin:8px 0 6px;
   border:3px solid var(--gold);box-shadow:0 0 0 5px #f5e8dc,0 0 0 7px rgba(201,162,74,.75),0 8px 18px rgba(120,60,60,.22)}
@@ -285,7 +287,7 @@ le susurraron: «Sigue tus caminos».`,
 `Y antes del sol, muy temprano,
 con su capa en la mano,
 bajó por la escalera
-de puntillas, sin que la vieran.
+sin que nadie la viera.
 
 Cruzó el puente, cruzó el foso,
 con el corazón nervioso:
@@ -299,8 +301,8 @@ niños que reían y jugaban,
 
 un juglar con su laúd
 y aroma a campo y juventud.
-Nicolle, con los ojos abiertos,
-miraba todos los puestos.`,
+y Nicolle, maravillada,
+no se perdía de nada.`,
 
 `Junto a una vieja carreta
 de peonías rosa y violeta,
@@ -315,8 +317,8 @@ color de otoño… y después,
 su corazón dio un brinco:
 <em>¡uno, dos, tres, cuatro, cinco!</em>`,
 
-`Juntó un ramo de peonías,
-rosadas como sus mejillas,
+`Juntó un ramo de peonías
+como quien junta poesías,
 y le dijo: «No tengo oro,
 pero estas flores son mi tesoro».
 
@@ -378,9 +380,9 @@ con pergamino y sombrero:
 te dejó un molino de viento,
 
 tierras, trigo y un caballo…».
-¡Y él saltó como un rayo!
-«¡Ahora iré ante el rey
-a pedir su mano, como manda la ley!»`,
+¡Él saltó más alto que un gallo!
+«¡Ahora sí, iré ante el rey
+a pedir su mano, como es ley!»`,
 
 `Ante el trono, con sombrero
 en la mano, humilde y sincero,
@@ -400,6 +402,7 @@ y una peonía… su primera flor.`,
 `El rey leyó, se secó un ojo,
 se le puso el bigote rojo:
 «Ay, mi cabeza de pollo…
+¡y yo que me reí, qué tonto!
 Cien me trajeron riqueza;
 tú me traes la certeza.
 El oro se gasta y se va,
@@ -903,7 +906,24 @@ function layoutSingle(){
   $('prevBtn').disabled = pg === 0;
   $('nextBtn').disabled = pg === NP - 1;
 }
-const layout = () => single ? layoutSingle() : layoutBook();
+const IMGCACHE = {};
+function loadImg(u){ if(IMGCACHE[u]) return IMGCACHE[u]; const im = new Image(); im.decoding = 'async'; im.src = u; IMGCACHE[u] = im; return im; }
+const imgsOf = p => (pages[p] || '').match(/img\/[\w.-]+\.jpg/g) || [];
+// deja listas las páginas cercanas (antes y después de la actual)
+function preloadNear(){
+  const base = single ? pg : Math.max(0, 2*cur - 1);
+  for(let p = base - 2; p <= base + 6; p++) imgsOf(p).forEach(loadImg);
+}
+// y de a poco, una por una, todas las demás
+function preloadAll(){
+  const all = [...new Set(pages.flatMap((_, p) => imgsOf(p)))];
+  let i = 0;
+  const next = () => { while(i < all.length && IMGCACHE[all[i]]) i++; if(i >= all.length) return;
+    const im = loadImg(all[i++]); const go = () => setTimeout(next, 150);
+    if(im.complete) go(); else { im.onload = go; im.onerror = go; } };
+  next();
+}
+const layout = () => { single ? layoutSingle() : layoutBook(); preloadNear(); };
 
 function turn(dir){
   if(single){
@@ -1174,6 +1194,7 @@ function openBook(){
   document.getElementById('intro').classList.add('gone');
   playMusic();
   setTimeout(()=>turn(1), 900);
+  setTimeout(preloadAll, 2500);
 }
 document.getElementById('openBtn').onclick = openBook;
 
