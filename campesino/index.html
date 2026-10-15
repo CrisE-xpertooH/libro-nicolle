@@ -3,22 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="La otra mitad de la historia, para Nicolle 🍂">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Para Nicolle">
-<meta property="og:title" content="El Campesino y los Ojos de Otoño">
-<meta property="og:description" content="La otra mitad de la historia, para Nicolle 🍂">
-<meta property="og:url" content="https://crise-xpertooh.github.io/libro-nicolle/campesino/">
-<meta property="og:image" content="https://crise-xpertooh.github.io/libro-nicolle/campesino/img/og.jpg">
-<meta property="og:image:secure_url" content="https://crise-xpertooh.github.io/libro-nicolle/campesino/img/og.jpg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:locale" content="es_CL">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#e8c3c0">
 <title>El Campesino y los Ojos de Otoño</title>
-<link rel="preload" as="image" href="img/portada.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 <style>
@@ -73,13 +58,6 @@ body{
   border:3px solid var(--gold);
   box-shadow:0 0 0 6px #eff1e3, 0 0 0 8px var(--gold), 0 0 0 13px #d5dfc3, inset 0 0 30px rgba(60,72,40,.2)}
 .pic svg.scene{display:block;width:100%;height:100%}
-.art{position:absolute;inset:0;background:#efe6cf}
-.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;animation:imgIn .35s ease-out}
-@keyframes imgIn{from{opacity:.0}to{opacity:1}}
-.art svg.ov{position:absolute;inset:0;pointer-events:none}
-.cover .cameo{width:236px;height:300px;border-radius:50%;overflow:hidden;margin:8px 0 6px;
-  border:3px solid var(--gold);box-shadow:0 0 0 5px #f3ecd8,0 0 0 7px rgba(201,162,74,.75),0 8px 18px rgba(60,72,40,.25)}
-.cover .cameo img{width:100%;height:100%;object-fit:cover;object-position:50% 46%;display:block;transform:scale(1.2)}
 
 /* página de texto */
 .txt{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:54px 62px 60px;text-align:center}
@@ -106,10 +84,10 @@ body{
   box-shadow:inset 0 0 0 6px #f3e6d4, inset 0 0 0 8px var(--gold)}
 .cover .panel{position:relative;width:400px;display:flex;flex-direction:column;align-items:center;
   background:linear-gradient(180deg,#f8eee0,#ecdcc4);border:2px solid var(--gold);
-  border-radius:50% 50% 42% 42% / 15% 15% 11% 11%;padding:30px 26px 24px;
+  border-radius:50% 50% 42% 42% / 15% 15% 11% 11%;padding:36px 26px 30px;
   box-shadow:0 0 0 6px rgba(243,230,212,.8),0 0 0 8px rgba(201,162,74,.7),0 12px 30px rgba(60,72,40,.22)}
 .cover .once{font-style:italic;font-size:21px;color:#6e7a5a}
-.cover h1{font-family:'Pinyon Script',cursive;font-weight:400;font-size:46px;line-height:1.05;margin:4px 0 0;
+.cover h1{font-family:'Pinyon Script',cursive;font-weight:400;font-size:54px;line-height:1.02;margin:4px 0 0;
   color:var(--deep);text-shadow:0 1px 0 #fff, 0 3px 8px rgba(201,162,74,.35)}
 .cover .sub{font-size:23px;font-style:italic;color:#4f6045;margin-top:4px}
 .cover .medal{width:178px;height:178px;margin:6px 0}
@@ -342,7 +320,7 @@ la vio a lo lejos saludar.`,
 
 `Allá lejos, bajo el sol,
 sembró trigo, maíz y col,
-y de noche, con la vela por estrella,
+y de noche, a la luz de una vela,
 le escribía a su doncella:
 
 «Te pienso en cada fogata,
@@ -392,9 +370,9 @@ solo un molino… y mi amor».
 El rey rió: «¿Eso es todo, señor?
 
 ¡Cien vinieron con oro fino!
-¿Y tú me traes un molino?».
-Y a su hija: «Cabeza de pollo,
-¿qué dices de este embrollo?».`,
+¿Y tú me traes un molino?
+¿Y tú, mi cabeza de pollo,
+qué dices de este embrollo?».`,
 
 `Entonces ella, sonriente,
 abrió un cofre frente a la gente:
@@ -422,8 +400,8 @@ plantó aquella peonía
 que su abuela sembró un día.`
 ];
 
-const FINAL = `Y hoy, cada otoño, a su lado,
-sigue igual de enamorado,
+const FINAL = `Y hoy, cada otoño, al mirarla,
+no se cansa de admirarla,
 pues son los ojos que un día
 soñó… y hoy son su alegría.
 
@@ -906,31 +884,218 @@ const seasons = y => `${[[70,'❄','#7fb2e0'],[160,'✿','#e0344a'],[250,'☀','
 const notes = (x,y,col='#5e7451') => [0,1.3,2.6].map((d,i)=>`<g class="floatUp" style="animation-delay:${d}s"><text x="${x+i*14}" y="${y-i*6}" font-size="${16+i*2}" fill="${col}">♪</text></g>`).join('');
 
 /* =========================================================
-   LAS 13 ESCENAS DEL CAMPESINO — ilustraciones en acuarela
-   (img/escenaNN.jpg) con animaciones suaves encima
+   LAS 13 ESCENAS DEL CAMPESINO
    ========================================================= */
-// La imagen (896x1200) cubre el marco igual que el SVG de encima (viewBox 400x510, "slice"),
-// así que un punto (x,y) de la imagen está en (x*.446, y*.446-13) del SVG.
-const ART = (n, ov='') => `<div class="art"><img src="img/escena${String(n).padStart(2,'0')}.jpg" alt="" decoding="async">
-  <svg class="ov scene" viewBox="0 0 400 510" preserveAspectRatio="xMidYMid slice">${ov}</svg></div>`;
-const glowAt = (x,y,r,c='#ffd98a') => `<circle class="glow" cx="${x}" cy="${y}" r="${r}" fill="${c}" fill-opacity=".22"/>`;
-const motes = (n,y0,y1,col='#fff6c2') => Array.from({length:n},()=>sparkle(20+rnd()*360,y0+rnd()*(y1-y0),.5+rnd()*.6,rnd()*2.2,col)).join('');
-const fireflies = (n,y0,y1) => Array.from({length:n},(_,i)=>`<circle cx="${(20+rnd()*360).toFixed(1)}" cy="${(y0+rnd()*(y1-y0)).toFixed(1)}" r="2.4" fill="#fff3a0" class="twinkle" style="animation-delay:${(rnd()*2).toFixed(2)}s"/>`).join('');
-
 const ESCENAS = [
-() => ART(1, `${petals(7,['#f59ab0','#fde3ea','#ee9bb3'])}${notes(318,150,'#7a4a20')}${motes(6,20,180)}`),
-() => ART(2, `${motes(14,10,230,'#fffbe6')}${[0,1.4,2.8].map((d,i)=>`<g class="floatUp" style="animation-delay:${d}s"><text x="${300+i*10}" y="${330-i*8}" font-size="${16+i*3}" fill="#f1ecc0" font-family="serif" font-style="italic">z</text></g>`).join('')}`),
-() => ART(3, `${notes(300,214,'#7a4a20')}${petals(6,['#f59ab0','#e97aa2','#c9a7e8'])}`),
-() => ART(4, `${fallingLeaves(16,['#e0782f','#c9552a','#f0a040','#b5651d'])}${hearts([96,118,140],170)}`),
-() => ART(5, `${petals(14,['#f59ab0','#fde3ea','#ee9bb3','#f7c6a8'])}${hearts([150,250],160,['#f37a8c','#e0445a'])}${motes(8,20,250)}`),
-() => ART(6, `${fireflies(16,330,500)}${motes(8,10,200,'#fffbe6')}`),
-() => ART(7, `${motes(8,20,220)}${petals(4,['#f59ab0','#fde3ea'])}`),
-() => ART(8, `${glowAt(48,326,26)}${glowAt(372,188,20)}${glowAt(398,380,40,'#ffb84d')}${motes(5,60,170,'#fffbe6')}`),
-() => ART(9, `${fallingLeaves(8,['#e0782f','#c9552a','#f0a040'])}${petals(8,['#f7c6d6','#fde3ea','#ffffff'])}${hearts([160,186],140,['#e0445a','#f37a8c'])}`),
-() => ART(10, `${motes(14,60,330,'#f4c542')}`),
-() => ART(11, `${[0,.7].map(d=>`<g class="drip" style="animation-delay:${d}s"><path d="M210 278 q-3 6 0 8 q3 -2 0 -8z" fill="#7cc4ff"/></g>`).join('')}${motes(5,20,160)}`),
-() => ART(12, `${hearts([60,90,120],320,['#f37a8c','#e0445a'])}${[0,.9,1.8,2.7].map((d,i)=>`<g class="floatUp" style="animation-delay:${d}s">${envelope(90+i*26,420,.9)}</g>`).join('')}`),
-() => ART(13, `${petals(20,['#f59ab0','#ffffff','#e0344a','#f7d24a','#9fd8c6','#c9a7e8'])}`)
+// 1 — Su vida en el campo, al amanecer
+() => W(`<rect width="400" height="510" fill="url(#gDawn)"/>
+  <circle cx="310" cy="252" r="80" fill="url(#gSun)"/><circle cx="310" cy="252" r="34" fill="#ffd66b"/>
+  ${clouds(2,40,.6)}
+  <path d="M0 252 Q100 232 200 246 Q300 230 400 250 L400 510 L0 510Z" fill="#a3c47f"/>
+  ${[0,1,2,3,4,5,6].map(i=>`<path d="M${120+i*30} 252 L${i*80-80} 510" stroke="#8fb36c" stroke-width="3" opacity=".55"/>`).join('')}
+  ${house(22,150,1)}
+  ${tree(150,250,.55)}
+  ${fence(300)}
+  ${rooster(352,268,1.1)}${notes(374,232,'#7a4a20')}
+  <ellipse cx="120" cy="462" rx="118" ry="30" fill="#7a5a3a"/>
+  ${[18,52,86,120,154,188,222].map((x,i)=>flor(x,452+(i%2)*14,.72+(i%3)*.06,['#f59ab0','#e0344a','#f4c542','#9b59b6'][i%4],`class="swayB" style="animation-delay:-${i*.5}s"`)).join('')}
+  ${fig(campesino,244,272,96,{pose:'hold'},'bob')}
+  <g transform="translate(270 378)">
+    <path d="M0 0 h30 l-3 24 h-24z" fill="#8fa3ad" stroke="#5f727b" stroke-width="1.5"/>
+    <path d="M30 6 q10 0 8 14" stroke="#5f727b" stroke-width="3" fill="none"/>
+    <path d="M2 6 L-26 -10" stroke="#5f727b" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="-28" cy="-11" rx="4" ry="3" fill="#5f727b"/>
+  </g>
+  ${[0,.45,.9].map((d,i)=>`<g class="drip" style="animation-delay:${d}s"><ellipse cx="${236+i*4}" cy="${372+i*3}" rx="1.8" ry="3" fill="#7cc4ff"/></g>`).join('')}
+  ${Array.from({length:5},(_,i)=>wheatStalk(300+i*18,510,46+(i%2)*10,(i-2)*6)).join('')}`),
+
+// 2 — El sueño: unos ojos color otoño, sin rostro
+() => W(`${starryNight(510,{moon:[62,64],swirls:[[170,130,62],[320,250,36]],n:300,stars:8,hills:true})}
+  <path d="M0 440 Q200 418 400 442 L400 510 L0 510Z" fill="#26413a"/>
+  ${Array.from({length:30},(_,i)=>{const x=rnd()*400,y=448+rnd()*58;return `<path d="M${x.toFixed(1)} ${y.toFixed(1)} q8 -4 16 0" stroke="${['#33534a','#3f6658','#1d332d'][i%3]}" stroke-width="3" fill="none" stroke-linecap="round"/>`}).join('')}
+  ${cypress(372,470,250)}
+  ${hay(70,458,1,true)}${hay(232,462,1.7,true)}
+  ${sleeper(176,348,1.05)}
+  ${[0,1.4,2.8].map((d,i)=>`<g class="floatUp" style="animation-delay:${d}s"><text x="${152+i*9}" y="${328-i*8}" font-size="${14+i*3}" fill="#f1ecc0" font-family="serif" font-style="italic">z</text></g>`).join('')}
+  <circle cx="196" cy="306" r="6" fill="#fbf3ea" stroke="#e2cdb8" stroke-width="2"/>
+  <circle cx="212" cy="282" r="9" fill="#fbf3ea" stroke="#e2cdb8" stroke-width="2"/>
+  <circle cx="230" cy="252" r="12" fill="#fbf3ea" stroke="#e2cdb8" stroke-width="2"/>
+  <g class="bob">${dreamCloud(282,150,.98,`
+    ${dreamEye(-28,0,1.08)}${dreamEye(28,0,1.08)}
+    ${[[-56,-36,'#e0782f'],[52,-40,'#c9552a'],[-48,40,'#f0a040'],[46,42,'#b5651d'],[0,-58,'#e0782f']].map(([x,y,c],i)=>`<path transform="translate(${x} ${y}) rotate(${i*50})" d="M0 0 Q6 -6 12 0 Q6 6 0 0Z" fill="${c}"/>`).join('')}
+    ${sparkle(-20,34,.8,.3)}${sparkle(24,36,.7,1.1)}`)}</g>
+  <path d="M330 40 l-46 26" stroke="#fffbe6" stroke-width="2.5" stroke-linecap="round" opacity=".9"><animate attributeName="opacity" values="0;1;0;0" dur="4s" repeatCount="indefinite"/></path>`),
+
+// 3 — Día de mercado
+() => W(`<rect width="400" height="510" fill="url(#gDay)"/>${sun(340,62,20)}${clouds(2,40)}
+  <path d="M0 262 Q200 232 400 264 L400 510 L0 510Z" fill="#a8cf8a"/>
+  ${house(208,190,.55)}${house(258,176,.68,'#f6e2c0','#b9854a')}${house(326,188,.6)}
+  <path d="M40 510 Q110 410 250 312 Q282 290 300 282 L322 284 Q300 306 282 324 Q180 420 170 510Z" fill="#e6cf9b"/>
+  ${tree(30,300,.7)}${tree(372,318,.62)}${flowers(40,330,505)}
+  ${cart(150,374,.95)}
+  ${figF(campesino,18,266,92,{pose:'reachL'},'bob')}
+  ${notes(96,282)}
+  ${butterfly(240,250,'#f4c542')}${butterfly(120,200,'#f59ab0',3)}`),
+
+// 4 — Los ojos de su sueño
+() => W(`<rect width="400" height="510" fill="url(#gAutumn)"/>${clouds(2,40,.7)}
+  <path d="M0 360 Q200 332 400 362 L400 510 L0 510Z" fill="#d7b67a"/>
+  <path d="M0 430 Q200 410 400 434 L400 510 L0 510Z" fill="#c9a266"/>
+  ${tree(352,318,1.45,['#e0782f','#c9552a','#f0a040'])}
+  ${cart(-70,380,.85)}
+  ${fig(campesino,36,272,96,{mood:'love'})}
+  ${hearts([66,84,102],268)}
+  <circle cx="112" cy="250" r="5" fill="#fbf3ea" stroke="#e2cdb8" stroke-width="2"/>
+  <circle cx="124" cy="230" r="8" fill="#fbf3ea" stroke="#e2cdb8" stroke-width="2"/>
+  ${dreamCloud(178,168,.52,`${dreamEye(-28,0,1.08)}${dreamEye(28,0,1.08)}`)}
+  <path d="M210 196 Q256 236 272 314" stroke="#e8b04a" stroke-width="2.5" fill="none" stroke-dasharray="4 7" class="shimmer"/>
+  ${fig(princesa,226,282,92,{capa:true,hood:true,mood:'smile'})}
+  ${sparkle(266,326,.9,0)}${sparkle(292,326,.9,.6)}
+  ${fallingLeaves(14,['#e0782f','#c9552a','#f0a040','#b5651d'])}`),
+
+// 5 — Las peonías de la abuela
+() => W(`<rect width="400" height="510" fill="url(#gLove)"/>
+  ${Array.from({length:12},()=>sparkle(20+rnd()*360,20+rnd()*200,.6+rnd()*.7,rnd()*2)).join('')}
+  <path d="M0 404 Q200 372 400 404 L400 510 L0 510Z" fill="#b9d98e"/>${flowers(36,412,505)}
+  ${figF(campesino,62,244,104,{pose:'offer',mood:'smile'})}
+  ${figF(princesa,206,250,104,{capa:true,mood:'blush',arms:'reachR'})}
+  <g class="pulse">${heart(200,196,1.5,'#e0445a')}</g>
+  ${hearts([140,262],226,['#f37a8c','#e0445a'])}
+  ${petals(12,['#f59ab0','#fde3ea','#ee9bb3'])}`),
+
+// 6 — Una noche de dudas
+() => W(`${starryNight(510,{moon:[336,62],swirls:[[150,128,62]],n:300,stars:8})}
+  <path d="M170 300 Q280 236 400 276 L400 510 L170 510Z" fill="#26406e"/>
+  ${castle(258,170,.52,true)}
+  <path d="M0 334 Q200 304 400 342 L400 510 L0 510Z" fill="#22405a"/>
+  ${Array.from({length:40},(_,i)=>{const x=rnd()*400,y=350+rnd()*155;return `<path d="M${x.toFixed(1)} ${y.toFixed(1)} q8 -4 16 0" stroke="${['#2f5572','#3a6687','#1b334a'][i%3]}" stroke-width="3" fill="none" stroke-linecap="round"/>`}).join('')}
+  ${house(10,236,1,'#cfc2a2','#8a6a3a')}${nightWindows(10,236,1)}
+  ${fence(372,'#5a4630')}
+  ${fig(campesino,128,282,96,{mood:'sad',pose:'hold',flower:true})}
+  <circle cx="200" cy="300" r="5" fill="#fbf3ea" stroke="#e2cdb8" stroke-width="2"/>
+  <circle cx="212" cy="276" r="8" fill="#fbf3ea" stroke="#e2cdb8" stroke-width="2"/>
+  <circle cx="226" cy="256" r="10" fill="#fbf3ea" stroke="#e2cdb8" stroke-width="2"/>
+  ${dreamCloud(262,196,.64,`${crownIcon(-46,6,1.8)}<text x="0" y="22" font-size="64" text-anchor="middle" fill="#8a6a4a" font-family="serif" font-weight="bold">?</text>${hatIcon(48,14,1.4)}`)}
+  ${[[60,420],[300,452],[352,390],[180,470]].map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="2.5" fill="#fff3a0" class="twinkle" style="animation-delay:${i*.6}s"/>`).join('')}`),
+
+// 7 — La despedida, desde su lado del camino
+() => W(`<rect width="400" height="510" fill="url(#gSunset)"/>
+  <circle cx="92" cy="262" r="62" fill="url(#gSun)"/><circle cx="92" cy="262" r="30" fill="#ffd66b"/>
+  <path d="M0 262 H400 V510 H0Z" fill="#9bbf6a"/>
+  <path d="M92 262 L400 262 L400 330Z" fill="#c9c26a"/><path d="M92 262 L0 262 L0 320Z" fill="#b7cf6f"/>
+  <path d="M92 262 L400 330 L400 430Z" fill="#8fb35e"/><path d="M92 262 L0 320 L0 410Z" fill="#e3c46a"/>
+  <path d="M260 210 Q320 180 400 196 L400 262 L230 262Z" fill="#8a9f6a"/>
+  ${castle(300,150,.36)}
+  ${fig(princesa,358,224,15,{arms:'reachR'})}
+  <path d="M84 264 L100 264 L230 510 L40 510Z" fill="#e6cf9b"/>
+  ${fig(campesino,150,280,98,{pose:'wave',mood:'sad'},'walk')}
+  ${[[200,80],[230,100],[262,74]].map(([x,y],i)=>`<path d="M${x} ${y} q6 -6 12 0 q6 -6 12 0" stroke="#4a2e4a" stroke-width="2" fill="none" class="drift" style="animation-duration:${30+i*6}s;animation-delay:-${i*5}s"/>`).join('')}
+  ${flor(36,500,.8,'#f59ab0')}${flor(60,506,.7,'#e0344a')}`),
+
+// 8 — Cartas a la luz de la vela
+() => W(`<rect width="400" height="510" fill="#6b4a32"/>
+  ${Array.from({length:10},(_,i)=>`<path d="M${i*42+20} 0 V380" stroke="#5a3d28" stroke-width="3"/>`).join('')}
+  ${[[60,140],[150,60],[196,250],[110,300]].map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="5" ry="3" fill="#4e3422"/>`).join('')}
+  <defs><clipPath id="winClip2"><path d="M234 232 L234 110 Q234 50 302 50 Q370 50 370 110 L370 232Z"/></clipPath></defs>
+  <g clip-path="url(#winClip2)">${starryNight(250,{x0:234,x1:370,n:130,stars:4,moon:[344,92],swirls:[[294,124,40]]})}</g>
+  <path d="M234 232 L234 110 Q234 50 302 50 Q370 50 370 110 L370 232Z" fill="none" stroke="#8a6a46" stroke-width="9"/>
+  <path d="M302 52 V232 M234 150 H370" stroke="#8a6a46" stroke-width="5"/>
+  <rect x="224" y="228" width="156" height="12" rx="3" fill="#9a7650"/>
+  <g transform="translate(330 214) scale(.72)">${dove()}</g>
+  <path d="M86 62 v16" stroke="#3a2412" stroke-width="3"/>${hatIcon(86,96,1.5)}
+  <circle cx="300" cy="340" r="200" fill="url(#gCandle)" class="glow"/>
+  ${fig(campesino,108,246,104,{hat:false,pose:'hold',mood:'smile'})}
+  <path d="M30 394 L370 394 L350 360 L50 360Z" fill="#b07c44"/>
+  <rect x="30" y="394" width="340" height="116" fill="#8a5a30"/><path d="M30 422 H370" stroke="#6b4226" stroke-width="2"/>
+  <path d="M118 388 L198 388 L192 366 L126 366Z" fill="#fdf6e3"/>
+  <path d="M134 372 H184 M132 377 H186 M130 382 H176" stroke="#9a7a5a" stroke-width="1"/>
+  <circle cx="152" cy="372" r="5.2" fill="#eec39a"/><circle cx="168" cy="372" r="5.2" fill="#eec39a"/>
+  <path d="M170 372 L198 332" stroke="#5a3a22" stroke-width="1.6"/>
+  <path d="M198 332 Q210 316 204 304 Q190 320 188 340Z" fill="#f4f1ea" stroke="#d8d2c4"/>
+  <path d="M214 382 h16 v-10 q-8 -6 -16 0z" fill="#2a2a3a"/>
+  <g transform="translate(78 380)">${envelope(0,0,1.1)}${envelope(4,-6,1.1)}${envelope(-2,-12,1.1)}<path d="M-12 -6 H16" stroke="#c0392b" stroke-width="2"/></g>
+  <ellipse cx="300" cy="380" rx="20" ry="5" fill="#c9a24a"/>
+  <rect x="292" y="334" width="16" height="44" rx="3" fill="#fdf3dc"/>
+  <path d="M300 334 v-5" stroke="#3a2412" stroke-width="1.5"/>
+  <circle cx="300" cy="318" r="16" fill="#ffd98a" opacity=".35" class="glow"/>
+  <g class="flicker"><path d="M300 304 Q291 318 300 330 Q309 318 300 304Z" fill="#ffc23d"/><path d="M300 313 Q296 321 300 328 Q304 321 300 313Z" fill="#fff6c2"/></g>`),
+
+// 9 — La paloma vuelve con sus cartas
+() => W(`<rect width="400" height="510" fill="url(#gAutumn)"/>${sun(332,70,22)}${clouds(2,40,.8)}
+  <path d="M0 300 Q200 274 400 302 L400 510 L0 510Z" fill="#e3c46a"/>
+  ${hay(60,318,.7)}${hay(352,322,.8)}
+  ${Array.from({length:28},(_,i)=>`<path d="M${i*15} ${352+(i%3)*10} q2 -14 0 -22" stroke="#c9a040" stroke-width="2" fill="none"/>`).join('')}
+  ${fig(campesino,140,244,104,{pose:'joy',mood:'big'})}
+  <g transform="translate(240 270) scale(.82)">${dove()}</g>
+  ${hearts([196,214],250,['#e0445a','#f37a8c'])}
+  <g transform="translate(130 420)"><path d="M0 0 q-4 30 18 34 h30 q20 -4 16 -34z" fill="#8a6a46"/>${envelope(18,-2,.9)}${envelope(34,-6,.9)}</g>
+  ${Array.from({length:6},(_,i)=>wheatStalk(14+i*14,452,40+(i%2)*8,(i-3)*5)).join('')}
+  ${seasons(474)}`),
+
+// 10 — La herencia
+() => W(`<rect width="400" height="510" fill="url(#gDay)"/>${sun(62,64,20)}${clouds(2,40)}
+  <path d="M180 330 Q290 230 400 300 L400 510 L180 510Z" fill="#9fcf86"/>
+  ${windmill(318,186,1)}
+  <path d="M0 380 Q200 350 400 380 L400 510 L0 510Z" fill="#e3c46a"/>
+  ${Array.from({length:28},(_,i)=>`<path d="M${i*15} ${400+(i%3)*10} q2 -14 0 -22" stroke="#c9a040" stroke-width="2" fill="none"/>`).join('')}
+  <path d="M0 450 Q200 430 400 460 L400 510 L0 510Z" fill="#d4b056"/>
+  ${fig(pretendiente,14,286,66,'#8fc4b0')}
+  <g transform="translate(70 384) rotate(-12)"><rect x="-4" y="-2" width="24" height="28" fill="#f6ecd2" stroke="#b8923f"/><rect x="-7" y="-6" width="30" height="6" rx="3" fill="#d9c08a"/></g>
+  ${fig(campesino,138,236,104,{pose:'joy',mood:'big',scroll:true},'jump')}
+  ${Array.from({length:8},()=>sparkle(110+rnd()*200,190+rnd()*140,.8+rnd()*.6,rnd()*2,'#f4c542')).join('')}`),
+
+// 11 — Frente al portón del castillo
+() => W(`<rect width="400" height="510" fill="url(#gDay)"/>${clouds(2,22)}
+  <rect x="0" y="70" width="400" height="380" fill="#f7e9e1"/>
+  <path d="M110 72 Q200 4 290 72Z" fill="#f7e9e1" stroke="#c9a24a" stroke-width="4"/>
+  <g transform="translate(200 62)"><path d="M0 0 L-26 -6 Q-22 -28 0 -31 Q22 -28 26 -6Z" fill="#f6e6d6" stroke="#c9a24a" stroke-width="2"/>
+    ${[-20,-10,0,10,20].map(x=>`<path d="M0 -2 L${x} -26" stroke="#c9a24a" stroke-width="1.3"/>`).join('')}</g>
+  <path d="M0 72 H400" stroke="#c9a24a" stroke-width="5"/>
+  ${[18,98,288,368].map(x=>`<rect x="${x}" y="80" width="14" height="362" fill="#f1ddd3" stroke="#d9b25a" stroke-width="1.5"/>`).join('')}
+  ${[[40,120],[310,120],[40,270],[310,270]].map(([x,y])=>`<path d="M${x} ${y+90} L${x} ${y+24} Q${x+25} ${y-4} ${x+50} ${y+24} L${x+50} ${y+90}Z" fill="#8fb3d4" stroke="#8fc4b0" stroke-width="5"/>`).join('')}
+  <path d="M128 442 L128 222 Q200 136 272 222 L272 442Z" fill="#d98ca0" stroke="#c9a24a" stroke-width="6"/>
+  <path d="M200 160 V442" stroke="#c9a24a" stroke-width="3"/>
+  ${[[142,240],[212,240],[142,340],[212,340]].map(([x,y])=>`<rect x="${x}" y="${y}" width="46" height="80" rx="6" fill="none" stroke="#e8c27a" stroke-width="2.5"/>`).join('')}
+  <circle cx="190" cy="350" r="5" fill="#f4c542"/><circle cx="210" cy="350" r="5" fill="#f4c542"/>
+  <rect x="60" y="440" width="280" height="14" fill="#ead8ca"/><rect x="40" y="454" width="320" height="14" fill="#f0e2d6"/><rect x="18" y="468" width="364" height="42" fill="#f5eadf"/>
+  ${fig(pretendiente,22,288,62,'#b9a3d6')}${fig(pretendiente,316,288,62,'#b9a3d6')}
+  ${[66,360].map(x=>`<path d="M${x} 300 V446" stroke="#7a5230" stroke-width="3"/><path d="M${x-6} 302 L${x} 284 L${x+6} 302Z" fill="#c9c9d6" stroke="#8a8a9a"/>`).join('')}
+  ${fig(campesino,152,290,96,{hat:false,pose:'hold',mood:'sad'},'shake')}
+  ${[0,.7].map((d,i)=>`<g class="drip" style="animation-delay:${d}s"><path d="M${238+i*8} ${326+i*6} q-3 6 0 8 q3 -2 0 -8z" fill="#7cc4ff"/></g>`).join('')}
+  <path d="M168 462 q-6 8 0 16 M236 462 q6 8 0 16" stroke="#9a7a5a" stroke-width="2" fill="none" class="shake"/>`),
+
+// 12 — El cofre de cartas y la bendición
+() => W(`<rect width="400" height="510" fill="url(#stone)"/>
+  <path d="M0 0 H70 Q60 120 0 200Z" fill="#e7b0bd"/><path d="M400 0 H330 Q340 120 400 200Z" fill="#e7b0bd"/>
+  <path d="M0 0 H400 V26 Q200 50 0 26Z" fill="#d98ca0"/><path d="M0 26 Q200 50 400 26" stroke="#f2c14e" stroke-width="4" fill="none"/>
+  <rect y="400" width="400" height="110" fill="#d9b894"/><path d="M0 400 H400" stroke="#c29a70" stroke-width="4"/>
+  <path d="M240 400 L330 400 L390 510 L180 510Z" fill="#e3a3b3"/>
+  <path d="M232 408 L232 200 Q284 140 336 200 L336 408Z" fill="#d4a94a" stroke="#9a7132" stroke-width="3"/>
+  <path d="M244 404 L244 210 Q284 160 324 210 L324 404Z" fill="#d98ca0"/>${heart(284,176,.7,'#e0344a')}
+  ${fig(rey,238,214,92,{letter:true,tear:true,blush:true})}
+  ${fig(princesa,20,256,96,{arms:'hold',mood:'big'})}
+  ${fig(campesino,138,258,94,{hat:false,pose:'hold',mood:'wow'})}
+  ${chest(56,440,1.1,true)}
+  ${[0,.6,1.2,1.8,2.4,3.0,3.6].map((d,i)=>`<g class="floatUp" style="animation-delay:${d}s">${envelope(66+i*7,430,.9)}</g>`).join('')}
+  ${hearts([150,190],300,['#e0445a','#f37a8c'])}
+  ${sparkle(70,436,1,0)}${sparkle(112,440,.8,1)}`),
+
+// 13 — La boda y la peonía de la abuela
+() => W(`<rect width="400" height="510" fill="url(#gDay)"/>${clouds(2,30)}
+  ${castle(120,66,.66)}
+  <path d="M0 250 Q200 220 400 250 L400 510 L0 510Z" fill="#9fcf86"/>
+  <g class="sway"><path d="M30 0 V40" stroke="#7a5230" stroke-width="2"/><path d="M18 58 Q18 36 30 36 Q42 36 42 58Z" fill="#f4c542" stroke="#c9961a"/><circle cx="30" cy="60" r="4" fill="#c9961a"/></g>
+  <g class="sway" style="animation-delay:-1.5s"><path d="M370 0 V40" stroke="#7a5230" stroke-width="2"/><path d="M358 58 Q358 36 370 36 Q382 36 382 58Z" fill="#f4c542" stroke="#c9961a"/><circle cx="370" cy="60" r="4" fill="#c9961a"/></g>
+  ${[0,1].map(r=>Array.from({length:4},(_,i)=>flor(14+i*22+r*10,300+r*26,.6+r*.1,['#e0344a','#f59ab0','#f4c542','#9b59b6'][(i+r)%4],`class="swayB" style="animation-delay:-${(i+r)*.3}s"`)).join('')).join('')}
+  ${[0,1].map(r=>Array.from({length:4},(_,i)=>flor(316+i*22+r*10,300+r*26,.6+r*.1,['#f59ab0','#e0344a','#9b59b6','#f4c542'][(i+r)%4],`class="swayB" style="animation-delay:-${(i+r)*.3}s"`)).join('')).join('')}
+  ${fig(princesa,92,206,100,{veil:true,arms:'reachR',mood:'big',gown:'#fbf4ee'})}
+  ${fig(campesino,184,202,100,{pose:'reachL',flower:true,mood:'love'})}
+  <g class="pulse">${heart(192,166,1.4,'#e0445a')}</g>
+  <ellipse cx="200" cy="478" rx="54" ry="14" fill="#7a5a3a"/>
+  <g class="swayB">${flor(200,478,1.25,'#f59ab0')}</g>
+  ${sparkle(170,410,1,0)}${sparkle(234,404,.9,.7)}${sparkle(214,440,.7,1.3)}
+  <g transform="translate(262 462)"><path d="M0 0 h26 l-3 20 h-20z" fill="#8fa3ad" stroke="#5f727b" stroke-width="1.5"/><path d="M2 5 L-16 -8" stroke="#5f727b" stroke-width="3.5" stroke-linecap="round"/><path d="M26 5 q9 0 7 12" stroke="#5f727b" stroke-width="2.5" fill="none"/></g>
+  ${petals(16,['#f59ab0','#fff','#e0344a','#f7d24a'])}`)
 ];
 
 /* =========================================================
@@ -948,8 +1113,8 @@ const medal = `<svg class="medal" viewBox="-110 -110 220 220">
 const COVER = `<div class="face front cover">${RC}
   <div class="panel">${CREST.replace('class="crest"','class="crest" style="top:-30px"')}
     <div class="once">Érase una vez…</div>
-    <h1>El Campesino y<br>los Ojos de Otoño</h1>
-    <div class="cameo"><img src="img/portada.jpg" alt=""></div>
+    <h1>El Campesino<br>y los Ojos<br>de Otoño</h1>
+    ${medal}
     <div class="sub">La otra mitad de la historia, para Nicolle</div>
   </div>
   <div class="press">Presiona → para abrir</div>
@@ -1025,24 +1190,7 @@ function layoutSingle(){
   $('prevBtn').disabled = pg === 0;
   $('nextBtn').disabled = pg === NP - 1;
 }
-const IMGCACHE = {};
-function loadImg(u){ if(IMGCACHE[u]) return IMGCACHE[u]; const im = new Image(); im.decoding = 'async'; im.src = u; IMGCACHE[u] = im; return im; }
-const imgsOf = p => (pages[p] || '').match(/img\/[\w.-]+\.jpg/g) || [];
-// deja listas las páginas cercanas (antes y después de la actual)
-function preloadNear(){
-  const base = single ? pg : Math.max(0, 2*cur - 1);
-  for(let p = base - 1; p <= base + 3; p++) imgsOf(p).forEach(loadImg);
-}
-// y de a poco, una por una, todas las demás
-function preloadAll(){
-  const all = [...new Set(pages.flatMap((_, p) => imgsOf(p)))];
-  let i = 0;
-  const next = () => { while(i < all.length && IMGCACHE[all[i]]) i++; if(i >= all.length) return;
-    const im = loadImg(all[i++]); const go = () => setTimeout(next, 150);
-    if(im.complete) go(); else { im.onload = go; im.onerror = go; } };
-  next();
-}
-const layout = () => { single ? layoutSingle() : layoutBook(); preloadNear(); };
+const layout = () => single ? layoutSingle() : layoutBook();
 
 function turn(dir){
   if(single){
@@ -1255,7 +1403,7 @@ function makeSynth(){
   };
 }
 
-const SP_ID = '7floUlLoePYuqjhpvKq7s6';   // Can't Help Falling in Love — André Rieu   // canción de Spotify (la usa la versión pública)
+const SP_ID = '7floUlLoePYuqjhpvKq7s6';   // canción de Spotify (la usa la versión pública)
 let useSP = !!SP_ID, sp = null, spReady = false, spWanted = false, spBegun = false;
 function spFail(){
   if(!useSP) return;
